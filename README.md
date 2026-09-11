@@ -86,7 +86,7 @@ AuditGuard can be installed as a global or virtualenv CLI tool:
 ### Standard Installation
 ```powershell
 # Clone the repository
-git clone https://github.com/your-org/auditguard.git
+git clone https://github.com/SixFiveMil/auditguard.git
 cd auditguard
 
 # Install dependencies and AuditGuard CLI
