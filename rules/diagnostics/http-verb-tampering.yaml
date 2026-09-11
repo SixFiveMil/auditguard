@@ -1,0 +1,28 @@
+id: http-verb-tampering-inconsistency
+info:
+  name: Inconsistent HTTP Verb Access Control (Verb Tampering)
+  author: auditguard
+  severity: medium
+  description: The web server enforces authorization on GET but permits HEAD or OPTIONS requests without credentials, indicating improper HTTP verb filter configuration.
+  reference:
+    - https://cwe.mitre.org/data/definitions/650.html
+  tags:
+    - methods
+    - verb-tampering
+    - auth
+    - misconfig
+  classification:
+    cwe-id: CWE-650
+    cvss-score: 5.3
+  metadata:
+    remediation: Apply authentication and authorization filters uniformly across all HTTP verbs at the web server and reverse proxy levels.
+
+http:
+  - method: HEAD
+    path:
+      - "{{BaseURL}}"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200

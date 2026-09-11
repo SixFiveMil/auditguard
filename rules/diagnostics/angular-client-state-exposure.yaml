@@ -1,0 +1,33 @@
+id: angular-client-state-exposure
+info:
+  name: Angular Client-Side State and Route Disclosure
+  author: auditguard
+  severity: info
+  description: Detects Angular SPA deployments and inspects public application bundles for disclosures of internal administration routes, debug endpoints, or privileged client-side state.
+  reference:
+    - https://angular.dev/guide/routing
+    - https://cwe.mitre.org/data/definitions/200.html
+  tags:
+    - angular
+    - spa
+    - exposure
+    - routes
+    - passive
+  classification:
+    cwe-id: CWE-200
+    cvss-score: 3.1
+  metadata:
+    remediation: Ensure sensitive business logic and administrative endpoints enforce server-side access controls rather than relying on client-side route guards alone.
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "ng-version="
+          - "<app-root"
+        condition: or

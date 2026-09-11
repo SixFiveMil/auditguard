@@ -1,0 +1,39 @@
+id: exposed-openapi-swagger-spec
+info:
+  name: Exposed OpenAPI / Swagger Specification Endpoint
+  author: auditguard
+  severity: low
+  description: An unauthenticated Swagger or OpenAPI schema document is publicly accessible, exposing API architecture, route definitions, parameter schemas, and internal data structures.
+  reference:
+    - https://cwe.mitre.org/data/definitions/200.html
+  tags:
+    - api
+    - swagger
+    - openapi
+    - exposure
+    - recon
+  classification:
+    cwe-id: CWE-200
+    cvss-score: 5.3
+  metadata:
+    remediation: Restrict access to API schema documentation to authorized developer networks or require authenticated sessions.
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/openapi.json"
+      - "{{BaseURL}}/swagger.json"
+      - "{{BaseURL}}/v2/api-docs"
+      - "{{BaseURL}}/api/docs"
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        part: body
+        words:
+          - '"openapi":'
+          - '"swagger":'
+        condition: or

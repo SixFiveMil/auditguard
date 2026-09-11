@@ -1,0 +1,34 @@
+id: sensitive-cache-control-hygiene
+info:
+  name: Sensitive API Endpoint Missing Anti-Caching Directives
+  author: auditguard
+  severity: low
+  description: The target endpoint serves response data but fails to specify strict Cache-Control directives (no-store, no-cache, private). Responses may be cached by intermediate proxies or disk caches.
+  reference:
+    - https://cwe.mitre.org/data/definitions/525.html
+  tags:
+    - cache
+    - headers
+    - api
+    - hygiene
+  classification:
+    cwe-id: CWE-525
+    cvss-score: 3.5
+  metadata:
+    remediation: "Attach 'Cache-Control: no-store, no-cache, must-revalidate, private' and 'Pragma: no-cache' to all responses returning sensitive or authenticated payloads."
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        part: header
+        words:
+          - "no-store"
+        negative: true
+        case-insensitive: true

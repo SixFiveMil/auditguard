@@ -1,0 +1,14 @@
+# Local Synthetic Security Testbed
+# Used to verify tools, client logic, and audit logging offline safely.
+# To start: docker compose -f lab/docker-compose.yml up -d
+# URL: http://localhost:3000
+
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    container_name: auditguard-lab-target
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=unsafe

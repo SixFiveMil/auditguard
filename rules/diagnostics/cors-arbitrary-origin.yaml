@@ -1,0 +1,38 @@
+id: cors-arbitrary-origin-reflection
+info:
+  name: CORS Arbitrary Origin Reflection with Credentials
+  author: auditguard
+  severity: critical
+  description: The application dynamically reflects arbitrary request Origin headers and enables credentials. Any external origin can issue authenticated requests and read sensitive responses.
+  reference:
+    - https://portswigger.net/web-security/cors
+    - https://cwe.mitre.org/data/definitions/942.html
+  tags:
+    - cors
+    - misconfig
+    - auth
+    - headers
+  classification:
+    cwe-id: CWE-942
+    cvss-score: 8.1
+  metadata:
+    remediation: Never dynamically reflect arbitrary Origin headers with credentials enabled. Restrict allowed origins to an explicit domain whitelist.
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    headers:
+      Origin: "https://auditguard-diagnostic.internal"
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: header
+        words:
+          - "Access-Control-Allow-Origin: https://auditguard-diagnostic.internal"
+        case-insensitive: true
+      - type: word
+        part: header
+        words:
+          - "Access-Control-Allow-Credentials: true"
+        case-insensitive: true

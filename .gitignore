@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.coverage
+htmlcov/
+
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Environments, credentials, and local profiles
+.env
+*.env
+config/researcher.env
+config/*.local.yaml
+config/programs.local.yaml
+.venv
+env/
+venv/
+ENV/
+
+# Assessment reports and client deliverables
+reports/*.md
+reports/*.html
+reports/*.pdf
+reports/*.json
+reports/*
+!reports/.gitkeep
+
+# StateHunter scope ingestion and temporary exports
+*scope*.yaml
+*.scope.yaml
+statehunter*.yaml
+juiceshop*.yaml
+
+# Live audit logs with engagement traffic and auth tokens
+audit/*.jsonl
+audit/*.json
+audit/sessions/
+audit/*.log
+!audit/.gitkeep
+
+# Temporary testbed data & scratch scripts
+scratch/
+tmp/
+local_data/
+*.sqlite
+*.db
+.cache/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

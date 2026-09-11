@@ -1,0 +1,104 @@
+active_program: localhost
+programs:
+  localhost:
+    name: OWASP Juice Shop (Local Synthetic Testbed)
+    platform: LocalLab
+    in_scope:
+    - http://localhost:3000
+    excluded_paths:
+    - /logout
+    - /delete
+    - /billing
+    discovered_endpoints:
+    - /search
+    - /login
+    - /contact
+    - /chatbot
+    - /about
+    - /photo-wall
+    - /basket
+    - /administration
+    - /accounting
+    - /score-board
+    flagged_sensitive_endpoints:
+    - /administration
+    - /accounting
+    - /score-board
+    rate_limit_per_second: 2.0
+    allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    - OPTIONS
+    rules_of_engagement:
+      prohibit_dos: true
+      prohibit_data_destruction: true
+      header_tag: X-Bug-Bounty
+
+  codeandcypher_com:
+    name: Code and Cypher VDP
+    platform: Self-Hosted / VDP
+    policy_url: https://codeandcypher.com/security/
+    safe_harbor: true
+    rate_limit_per_second: 2.0
+    allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    - OPTIONS
+    in_scope:
+    - codeandcypher.com
+    - '*.codeandcypher.com'
+    out_of_scope:
+      domains: []
+      paths:
+      - '*/logout'
+      - '*/reset-password*'
+      - '*/delete-account*'
+    rules_of_engagement:
+      prohibit_dos: true
+      prohibit_data_destruction: true
+      header_tag: X-Bug-Bounty
+
+  example_store_vdp:
+    name: Example E-Commerce VDP
+    platform: HackerOne
+    policy_url: https://hackerone.com/example_vdp
+    safe_harbor: true
+    rate_limit_per_second: 2.0
+    allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    - OPTIONS
+    in_scope:
+    - staging.example.com
+    - '*.staging.example.com'
+    - api-test.example.com
+    out_of_scope:
+      domains:
+      - prod.example.com
+      - example.com
+      - pay.example.com
+      - admin.example.com
+      paths:
+      - '*/logout'
+      - '*/reset-password*'
+      - '*/delete-account*'
+      - '*/checkout/process'
+      - '*/webhooks/*'
+    rules_of_engagement:
+      prohibit_dos: true
+      prohibit_data_destruction: true
+      prohibit_spam_messaging: true
+      max_payload_size_bytes: 1048576
+      header_tag: X-Bug-Bounty

@@ -1,0 +1,6 @@
+include README.md
+include requirements.txt
+include pyproject.toml
+recursive-include config *.yaml *.env.example
+recursive-include rules *.yaml *.yml
+recursive-include docs *.md
