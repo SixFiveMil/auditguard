@@ -6,9 +6,12 @@
 [![Tests: 89/89 Passing](https://img.shields.io/badge/tests-89%2F89%20passing-brightgreen.svg)]()
 [![Safe Harbor: Disclose.io](https://img.shields.io/badge/Safe%20Harbor-Disclose.io%20Standard-success.svg)](docs/SAFE_HARBOR_LEGAL.md)
 [![CVSS: v3.1 Specification](https://img.shields.io/badge/CVSS-v3.1%20FIRST.org-orange.svg)](docs/ARCHITECTURE.md)
+[![RFC: 001 Open](https://img.shields.io/badge/RFC-001%20Peer%20Review-purple.svg)](docs/rfcs/RFC-001-COMMUNITY-PEER-REVIEW.md)
 
 > An open-source security engineering project by **[Code and Cypher](https://codeandcypher.com)**.  
 > Authored by **Joshua A. Wortz, CISSP**.
+>
+> 📢 **Call for Peer Review**: We have published **[RFC-001: Community Peer Review](docs/rfcs/RFC-001-COMMUNITY-PEER-REVIEW.md)** and the accompanying technical paper **[Bridging the Browser-to-Boundary Gap](https://codeandcypher.com/posts/client-side-spa-recon-and-safe-harbor-verification/)**. We invite AppSec engineers, bug bounty researchers, and compliance architects to review our scope containment math and cryptographic audit ledgers.
 
 **AuditGuard** is an enterprise-grade, compliance-first security research automation and scope management framework designed for professional ethical hackers, penetration testers, and application security teams operating under Vulnerability Disclosure Programs (VDPs) and bug bounty platforms (HackerOne, Bugcrowd, Intigriti).
 
