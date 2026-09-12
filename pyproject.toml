@@ -16,11 +16,12 @@ keywords = [
     "security",
     "bug-bounty",
     "vulnerability-assessment",
-    "safe-harbor",
     "cvss",
     "scope-enforcement",
     "idor",
-    "reconnaissance"
+    "dom-security",
+    "scope-containment",
+    "safe-harbor"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -52,7 +53,7 @@ auditguard = "main:main"
 
 [tool.setuptools]
 py-modules = ["main"]
-packages = ["core", "reporting", "audit"]
+packages = ["core", "reporting", "audit", "cli"]
 
 [tool.setuptools.package-data]
 "*" = ["*.yaml", "*.yml"]

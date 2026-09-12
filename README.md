@@ -13,14 +13,37 @@
 >
 > 📢 **Call for Peer Review**: We have published **[RFC-001: Community Peer Review](docs/rfcs/RFC-001-COMMUNITY-PEER-REVIEW.md)** and the accompanying technical paper **[Bridging the Browser-to-Boundary Gap](https://codeandcypher.com/posts/client-side-spa-recon-and-safe-harbor-verification/)**. We invite AppSec engineers, bug bounty researchers, and compliance architects to review our scope containment math and cryptographic audit ledgers.
 
-**AuditGuard** is an enterprise-grade, compliance-first security research automation and scope management framework designed for professional ethical hackers, penetration testers, and application security teams operating under Vulnerability Disclosure Programs (VDPs) and bug bounty platforms (HackerOne, Bugcrowd, Intigriti).
+**AuditGuard** is a pure Python 3.9+ standard library scope-containment engine and Disclose.io Safe Harbor audit logger built for authorized security assessments, penetration tests, and vulnerability disclosure programs (VDPs / bug bounty).
 
-AuditGuard mathematically prevents out-of-scope network traffic, enforces token-bucket rate limits, automates discovery-driven diagnostics with declarative Nuclei-compatible YAML rules, calculates exact FIRST.org CVSS v3.1 scores, synthesizes copy-pasteable code patches, and exports 1-click triage reports.
+AuditGuard enforces deterministic boundaries on HTTP traffic, validates URLs against authorized targets and excluded paths before any network packet is transmitted, enforces token-bucket rate limits, maintains an immutable SHA-256 append-only ledger for legal safe harbor compliance, and generates reproducible triage reports.
 
-### 🛡️ Part of the Code & Cypher AppSec Suite
-AuditGuard pairs directly with **[StateHunter](https://github.com/SixFiveMil/statehunter)** to provide end-to-end vulnerability discovery and verification:
+### 🧪 Automated Test Suite (89/89 Passing)
+
+AuditGuard includes a comprehensive test suite of **89 unit tests** verifying all core subsystems:
+
+```powershell
+# Run the full automated test suite
+python -m unittest discover tests
+```
+
+Test coverage includes:
+- Scope boundary enforcement (CIDR, wildcard hostnames, regex, excluded paths, and private IP blacklisting)
+- Token-bucket gatekeeper rate limiting and interactive prompt controls
+- Scoped HTTP client and append-only audit logging
+- Cryptographic Proof-of-Adherence certificates (Disclose.io Safe Harbor)
+- FIRST.org CVSS v3.1 score calculations and vector string synthesis
+- Declarative YAML rule engine and discovery-driven rule recommendations
+- Dual-role authorization matrix and IDOR / BOLA prober
+- Attack surface drift and regression monitoring
+- Statement of Work (SOW) reporting (Markdown, HTML, PDF) and platform triage export (HackerOne, Bugcrowd, GitHub, Jira)
+- Git hygiene and exclusion rules for assessment artifacts
+
+---
+
+### Part of the Code & Cypher AppSec Suite
+AuditGuard pairs with **[StateHunter](https://github.com/SixFiveMil/statehunter)** for full-lifecycle target analysis:
 - **[StateHunter](https://github.com/SixFiveMil/statehunter)** (*Browser / Client-Side*): Discovers runtime SPA routes (Next.js, Angular, Remix), detects in-memory state secrets, and audits cross-origin `postMessage` handlers in real time.
-- **[AuditGuard](https://github.com/SixFiveMil/auditguard)** (*Terminal / Server-Side*): Ingests StateHunter's YAML exports (`auditguard import-scope`), enforces mathematical scope boundaries, audits route authorization matrices, and generates Safe Harbor-protected deliverables.
+- **[AuditGuard](https://github.com/SixFiveMil/auditguard)** (*Terminal / Server-Side*): Ingests StateHunter YAML exports (`auditguard import-scope`), enforces mathematical scope boundaries, audits route authorization matrices, and generates Safe Harbor-protected deliverables.
 
 ---
 
@@ -67,24 +90,24 @@ flowchart TD
 
 ---
 
-## The 10 Core Pillars of AuditGuard
+## Core Capabilities
 
-1. **Deterministic Scope Enforcement**: Full regex, CIDR, and wildcard matching against in-scope targets. Mathematically prevents unauthorized outbound requests to external hosts, cloud metadata services (`169.254.169.254`), and prohibited critical routes (`/logout`, `/delete-account`, `/billing`).
-2. **Human-in-the-Loop Gatekeeper & Pacing**: Token-bucket rate limiter enforcing policy ceilings (e.g. `2.0 req/s`) with interactive operator co-signing to prevent denial-of-service.
-3. **StateHunter Reconnaissance & Route Auditing**: Direct ingestion of passive reconnaissance scope exports (`*scope*.yaml`), categorizing routes and isolating flagged administrative endpoints.
-4. **Declarative Nuclei-Compatible YAML Diagnostics**: Native Python execution of open-source ProjectDiscovery Nuclei HTTP templates without external Go dependencies. Automatically recommends and filters safe, read-only templates matching target tech stacks.
-5. **Deterministic FIRST.org CVSS v3.1 Scoring**: Pure-Python calculation of official FIRST.org base scores, exploitability/impact subscores, and RFC-compliant vector strings (`CVSS:3.1/...`) for every defect.
-6. **Tech-Stack Tailored Code Remediation**: Automatically generates production-ready developer code patches (Node.js/Express, Nginx, Angular) for CORS, CSP, cache hygiene, and RBAC guards.
-7. **1-Click Platform Triage Exporter**: Formats findings for instant submission to **HackerOne**, **Bugcrowd (VRT-mapped)**, **GitHub Issues**, and **Jira Cloud/Server (REST API JSON)**.
-8. **Dual-Role Authorization Matrix & IDOR / BOLA Prober**: Safely probes comparative access across researcher-controlled accounts (`user_a` vs. `user_b` vs. `admin` vs. `unauth`) to detect Broken Object Level Authorization (`CWE-639`) and privilege escalation (`CWE-269`).
-9. **Continuous Attack Surface Drift & Regression Monitor**: Compares target route state and defense headers against baseline sessions, detecting newly exposed endpoints, status transitions, and security regressions.
-10. **Legal Safe Harbor Defense Engine & Retest SOW Reporting**: Full alignment with the **Disclose.io Core Vulnerability Disclosure Standard**. Evaluates the append-only ledger to issue cryptographic Proof-of-Adherence certificates (CFAA 18 U.S.C. § 1030 / DMCA § 1201 research protections).
+1. **Deterministic Scope Containment**: Strict matching against authorized target definitions (domain names, wildcards, CIDR blocks, explicit URLs). Blocks outbound requests to out-of-scope hosts, cloud metadata services (`169.254.169.254`), private IP ranges, and excluded paths (`/logout`, `/delete-account`, `/billing`).
+2. **Rate Limiting & Traffic Pacing**: Token-bucket rate limiter enforcing configurable requests-per-second ceilings with interactive co-signing to prevent denial-of-service or server strain.
+3. **Disclose.io Safe Harbor Audit Ledger**: Immutable append-only JSONL transaction log recording every outbound request, response metadata, timestamp, and SHA-256 hash. Generates cryptographic Proof-of-Adherence certificates aligning with Disclose.io Safe Harbor standards (CFAA 18 U.S.C. § 1030 / DMCA § 1201 research protections).
+4. **StateHunter Scope Ingestion**: Directly ingests passive reconnaissance YAML exports (`*scope*.yaml`), classifying discovered SPA/API endpoints and isolating sensitive administrative routes.
+5. **Declarative Nuclei-Compatible Diagnostics**: Native Python execution of declarative YAML diagnostic templates without external Go dependencies. Automatically filters and recommends safe, read-only templates matching target tech stacks.
+6. **Deterministic FIRST.org CVSS v3.1 Scoring**: Pure-Python implementation of the official FIRST.org CVSS v3.1 metric specification, producing base scores, exploitability/impact subscores, and vector strings.
+7. **Dual-Role Authorization Matrix & IDOR Auditing**: Evaluates access control differential between researcher-controlled identities (`user_a`, `user_b`, `admin`, unauthenticated) to detect Broken Object Level Authorization (`CWE-639`) and privilege escalation (`CWE-269`).
+8. **Attack Surface Drift & Regression Monitoring**: Compares current target responses and security headers against baseline assessment sessions, highlighting new endpoints, status changes, and defensive regressions.
+9. **Remediation & Statement of Work Reporting**: Exports publication-ready deliverables in Markdown, HTML, and PDF formats, with targeted code remediation snippets (Express, Nginx, Angular).
+10. **Platform Triage Export**: Converts verified findings into submission-ready formats for **HackerOne**, **Bugcrowd (VRT-mapped)**, **GitHub Issues**, and **Jira (REST API JSON)**.
 
 ---
 
 ## Installation & Setup
 
-AuditGuard can be installed as a global or virtualenv CLI tool:
+AuditGuard requires Python 3.9 or newer. It can be installed as a standard CLI tool:
 
 ### Standard Installation
 ```powershell
@@ -129,7 +152,7 @@ auditguard check http://malicious-domain.com            # BLOCKED: Out of scope
 auditguard audit-endpoints --flagged-only --yes --output reports/assessment.html --pdf reports/assessment.pdf
 ```
 
-### 4. Export 1-Click Platform Triage Reports
+### 4. Export Platform Triage Reports
 Generate ready-to-file submissions for HackerOne, Bugcrowd, GitHub, and Jira:
 ```powershell
 auditguard export-triage --session audit/latest_findings.json --output-dir reports/triage
@@ -203,18 +226,7 @@ For full details on authoring custom rules, Safe Harbor verb filtering, and Wind
 
 ---
 
-## Automated Test Suite
-
-AuditGuard includes a comprehensive test suite of **89 unit tests** with 100% pass rate:
-
-```powershell
-# Run full automated test suite
-python -m unittest discover tests
-```
-
----
-
-## 👨‍💻 Author & Research
+## Author & Research
 
 AuditGuard is authored and maintained by **Joshua A. Wortz, CISSP** at [Code & Cypher](https://codeandcypher.com) — practical research, offensive tooling, and compliance automation for modern web applications.
 

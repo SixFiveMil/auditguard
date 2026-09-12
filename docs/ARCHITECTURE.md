@@ -8,7 +8,7 @@ AuditGuard is an enterprise-grade security research automation framework designe
 
 ```
                                   ┌────────────────────────────────┐
-                                  │      StateHunter / Recon       │
+                                  │ StateHunter (Runtime State JS) │
                                   └───────────────┬────────────────┘
                                                   │ Discovered Routes & Scope
                                                   ▼
@@ -132,3 +132,33 @@ Located in [`core/drift_monitor.py`](../core/drift_monitor.py), the monitor trac
 - **Route Expansion**: Set difference $E_{\text{current}} \setminus E_{\text{baseline}}$.
 - **Status Drift**: Tracks transitions like `HTTP 403` $\rightarrow$ `HTTP 200`.
 - **Security Regressions**: Evaluates critical defense headers (`Content-Security-Policy`, `Cache-Control: no-store`, `Strict-Transport-Security`, `X-Frame-Options`).
+
+---
+
+## 6. Codebase Architecture & Modularity
+
+AuditGuard is structured into decoupled, single-responsibility Python modules:
+
+```text
+auditguard/
+├── cli/                        # CLI parsing, subcommands, and dispatch logic
+│   ├── parser.py               # Subcommand definitions and argument schemas (20 commands)
+│   ├── commands.py             # Handlers for audit, probe, scope, triage, etc.
+│   └── __init__.py             # Package interface
+├── core/                       # Zero-dependency security assessment engines
+│   ├── scope_validator.py      # Deterministic CIDR, SSRF, and regex scope containment
+│   ├── client.py               # Attribution header injection & scoped HTTP transport
+│   ├── gatekeeper.py           # Token-bucket rate limiting & human co-signing
+│   ├── cvss.py                 # FIRST.org CVSS v3.1 mathematical calculation
+│   ├── auth_matrix.py          # Dual-role IDOR / BOLA authorization prober
+│   ├── diagnostics.py          # Pure-Python declarative YAML diagnostic engine
+│   ├── drift_monitor.py        # Attack surface drift and regression tracking
+│   ├── safe_harbor.py          # Disclose.io cryptographic proof-of-adherence engine
+│   └── rule_recommender.py     # Technology fingerprint to diagnostic rule matcher
+├── audit/                      # Cryptographic JSONL audit logger
+│   └── audit_logger.py         # Append-only SHA-256 ledger engine
+├── reporting/                  # Publication-grade SOW, PDF, HTML, and triage exporters
+├── rules/                      # Open-source declarative diagnostic YAML templates
+├── tests/                      # Automated test suite (89/89 passing unit tests)
+└── main.py                     # Concise CLI entry point (< 50 lines)
+```

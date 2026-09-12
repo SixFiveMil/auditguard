@@ -10,10 +10,10 @@ Comprehensive manual for the AuditGuard command-line interface (`auditguard` / `
 |:---|:---:|:---|
 | [`scope`](#1-scope) | Scope & Policy | Display active program scope boundaries, rules, and rate limits |
 | [`check`](#2-check) | Scope & Policy | Test a target URL against scope rules without sending traffic |
-| [`search-programs`](#3-search-programs) | Reconnaissance | Search the 800+ public bug bounty program registry |
-| [`harvest-scope`](#4-harvest-scope) | Reconnaissance | Passively harvest scope from security.txt and CT logs |
-| [`import-scope`](#5-import-scope) | Reconnaissance | Ingest a StateHunter YAML scope export into configuration |
-| [`endpoints`](#6-endpoints) | Reconnaissance | Inspect discovered routes against active scope rules |
+| [`search-programs`](#3-search-programs) | Program Discovery | Search the 800+ public bug bounty program registry |
+| [`harvest-scope`](#4-harvest-scope) | Scope Harvesting | Passively harvest scope from security.txt and CT logs |
+| [`import-scope`](#5-import-scope) | Scope Ingestion | Ingest a StateHunter YAML scope export into configuration |
+| [`endpoints`](#6-endpoints) | Route Inventory | Inspect discovered routes against active scope rules |
 | [`probe`](#7-probe) | Active Auditing | Execute an authorized, rate-limited HTTP probe |
 | [`diagnose`](#8-diagnose) | Active Auditing | Run deep security diagnostics on a single endpoint |
 | [`audit-endpoints`](#9-audit-endpoints) | Active Auditing | Run batch security diagnostics across all discovered routes |
